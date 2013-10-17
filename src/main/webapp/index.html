@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>AeroProd</title>
+    <meta name="description" content="">
+    <meta name="author" content="Daniel Passos">
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/table.css">
+    <link rel="stylesheet" href="css/form.css">
+
+    <script src="js/jquery-2.0.3.min.js"></script>
+    <script src="js/aerogear.custom.min.js"></script>
+    <script src="js/handlebars-1.0.0.js"></script>
+    <script src="js/app.js"></script>
+</head>
+<body>
+<script type="text/x-handlebars-template" id="product_template">
+    <table class="bordered">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each gameConsoles}}
+        <tr>
+            <td>{{name}}</td>
+            <td>{{price}}</td>
+            <td><a href="#delete" class="delete" data-id={{id}}>[Delete]</a></td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</script>
+
+<div style="width: 60%; float:left">
+    <div id="listing"></div>
+</div>
+
+<div style="width: 40%; float:right">
+    <form id="form_product" class="box">
+        <fieldset class="boxBody">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text"/>
+
+            <label for="price">Price</label>
+            <input id="price" name="price" type="text"/>
+        </fieldset>
+        <footer>
+            <button type="submit" class="btnSave">Save &raquo;</button>
+        </footer>
+    </form>
+</div>
+
+</body>
+</html>
