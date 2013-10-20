@@ -11,6 +11,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.Collection;
 
+import static me.passos.talks.aerogear.Constants.*;
+
 @Stateless
 @Path("/product")
 public class ProductService {
@@ -28,6 +30,7 @@ public class ProductService {
     @Produces(MediaType.APPLICATION_JSON)
     public Product addProduct(Product product) {
         em.persist(product);
+        notifyDevices("New product '" + product.getName() + "' was added", MessageType.ADDED.toString());
         return product;
     }
 
@@ -47,6 +50,24 @@ public class ProductService {
                 .setParameter("id", Long.valueOf(id))
                 .getSingleResult();
         em.remove(product);
+        notifyDevices("The product '" + product.getName() + "' was removed", MessageType.REMOVED.toString());
+    }
+
+    private void notifyDevices(String message, String messageType) {
+
+        System.setProperty("jsse.enableSNIExtension", "false");
+
+        JavaSender sender = new SenderClient(ProductApplication.AG_PUSH_URL);
+
+        UnifiedMessage unifiedMessage = new UnifiedMessage.Builder()
+                .pushApplicationId(PUSH_APLICATION_ID)
+                .masterSecret(Constants.PUSH_MASTER_SECRET)
+                .attribute("messageType", messageType)
+                .alert(message)
+                .build();
+
+        sender.send(unifiedMessage);
+
     }
 
 }
