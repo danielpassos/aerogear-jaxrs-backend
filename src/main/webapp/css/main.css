@@ -1,7 +1,25 @@
 body {
+    padding: 10px;
     margin: 40px auto;
     background: #eff3f6;
     color: #444;
     font-family: 'trebuchet MS', 'Lucida sans', Arial;
     font-size: 14px;
+    text-align:center;
+}
+
+.pure-table, .pure-form {
+    width: 100%;
+}
+
+table > thead > tr > th {
+    text-align: center;
+}
+
+table > tbody > tr > td:nth-child(2) {
+    text-align: right;
+}
+
+table > tbody > tr > td:nth-child(3) {
+    text-align: center;
 }

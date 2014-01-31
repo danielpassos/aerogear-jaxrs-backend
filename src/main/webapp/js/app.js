@@ -52,24 +52,27 @@ $(function () {
     $('#form_product').submit(function (e) {
         e.preventDefault();
 
-        Products.save(
-            {
-                name:  $("#name").val(),
-                price: $("#price").val()
-            },
-            {
-                success: function (data, textStatus, jqXHR) {
-                    retriveProducts();
-                    $( "#form_product input:text").val('');
+        if( ($("#name").val() == '') || ($("#price").val() == '') ) {
+            alert('Name and price are required');
+        } else {
+            Products.save(
+                {
+                    name:  $("#name").val(),
+                    price: $("#price").val()
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(errorThrown);
-                    console.log("Error");
+                {
+                    success: function (data, textStatus, jqXHR) {
+                        retriveProducts();
+                        $( "#form_product input").val('');
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $(":input:first").focus();
+                        alert(errorThrown);
+                        console.log("Error");
+                    }
                 }
-            }
-        );
-
-        $(":input:first").focus();
+            );
+        }
     });
 
 });
