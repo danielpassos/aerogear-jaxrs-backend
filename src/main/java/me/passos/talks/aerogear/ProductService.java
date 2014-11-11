@@ -57,7 +57,7 @@ public class ProductService {
 
         System.setProperty("jsse.enableSNIExtension", "false");
 
-        JavaSender sender = new SenderClient(ProductApplication.AG_PUSH_URL);
+        JavaSender sender = new SenderClient(Constants.PUSH_SERVER_URL);
 
         UnifiedMessage unifiedMessage = new UnifiedMessage.Builder()
                 .pushApplicationId(PUSH_APLICATION_ID)
